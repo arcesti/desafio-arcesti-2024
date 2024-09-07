@@ -1,17 +1,34 @@
 {
     "habitat":[
         {
-            "nome":"savana",
-            "quantidade":5,
-            "animais":[
-                
-            ]
+            "numero":1,
+            "bioma":"savana",
+            "tamanho":10,
+            "animais":"3 macaco"
         },
         {
-
+            "numero":2,
+            "bioma":"floresta",
+            "tamanho":5,
+            "animais":"vazio"
         },
         {
-
+            "numero":3,
+            "bioma":"savana e rio",
+            "tamanho":7,
+            "animais":"1 gazela"
+        },
+        {
+            "numero":4,
+            "bioma":"rio",
+            "tamanho":8,
+            "animais":"vazio"
+        },
+        {
+            "numero":5,
+            "bioma":"savana",
+            "tamanho":9,
+            "animais":"1 leao"
         }
     ]
 }
