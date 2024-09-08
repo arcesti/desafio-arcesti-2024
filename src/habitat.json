@@ -16,6 +16,7 @@
             "bioma":"floresta",
             "tamanho":5,
             "animaisExistentes":[
+                "vazio"
             ]
         },
         {
