@@ -71,7 +71,7 @@ Saída
 ```js
 {
   recintosViaveis: ["Recinto 1 (espaço livre: 5 total: 10)", 
-   "Recinto 2 (espaço livre: 3 total: 5)", 
+   "Recinto 2 (espaço livre: 3 total: 5)",
    "Recinto 3 (espaço livre: 2 total: 7)"]
 }
 ```
