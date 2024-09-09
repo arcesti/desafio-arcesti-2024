@@ -30,7 +30,7 @@ function buscaCarnivoro(bioma, animal, quantidade) {
 
             let tamHabitat = habitat.habitat[i].tamanho
 
-            if (tamHabitat - espacoOcupado > espacoNovosAnimais) {
+            if (tamHabitat - espacoOcupado >= espacoNovosAnimais) {
                 resultado.erro = false
                 resultado.recintosViaveis[j] = `Recinto ${i + 1} (espaço livre: ${tamHabitat - (espacoNovosAnimais + espacoOcupado)} total: ${tamHabitat})`;
                 j++
@@ -62,7 +62,6 @@ function buscaMacaco(quantidade) {
                 if (j !== 0) {
                     resultado.erro = 'Não há recinto viável'
                     resultado.recintosViaveis = false
-                    console.log(resultado)
                 }
             }
             else {
@@ -85,17 +84,77 @@ function buscaMacaco(quantidade) {
                     }
                 }
 
-                if ((habitat.habitat[i].animaisExistentes[0].animal !== 'leao' && habitat.habitat[i].animaisExistentes[0].animal !== 'leopardo' && habitat.habitat[i].animaisExistentes[0].animal !== 'crocodilo') && tamHabitat - espacoOcupado > quantidade * animais.animais.macaco.tamanho) {
+                if(habitat.habitat[i].animaisExistentes[0].animal==='hipopotamo' && habitat.habitat[i].bioma==='savana e rio' && tamHabitat - espacoOcupado > quantidade * animais.animais.macaco.tamanho){
                     resultado.erro = false
                     resultado.recintosViaveis[j] = `Recinto ${i + 1} (espaço livre: ${tamHabitat - (espacoOcupado + quantidade * animais.animais.macaco.tamanho)} total: ${tamHabitat})`
                     //Incrementando o j para indicar que há pelo menos um recinto disponível
                     j++;
+                }
+                else{
+                    if ((habitat.habitat[i].animaisExistentes[0].animal !== 'leao' && habitat.habitat[i].animaisExistentes[0].animal !== 'leopardo' && habitat.habitat[i].animaisExistentes[0].animal !== 'crocodilo' && habitat.habitat[i].animaisExistentes[0].animal!=='hipopotamo') && tamHabitat - espacoOcupado >= quantidade * animais.animais.macaco.tamanho) {
+                        resultado.erro = false
+                        resultado.recintosViaveis[j] = `Recinto ${i + 1} (espaço livre: ${tamHabitat - (espacoOcupado + quantidade * animais.animais.macaco.tamanho)} total: ${tamHabitat})`
+                        //Incrementando o j para indicar que há pelo menos um recinto disponível
+                        j++;
+                    }
                 }
             }
         }
     }
     return resultado;
 }
+
+function buscaHipopotamo(quantidade) {
+    let resultado = {
+        "erro":false,
+        "recintosViaveis":[]
+    }, i, j=0;
+
+    for(i=0; i<habitat.habitat.length; i++) {
+        let habitatAtual = habitat.habitat[i];
+        if((habitatAtual.bioma === 'savana' || habitatAtual.bioma === 'rio') && (habitatAtual.animaisExistentes[0].animal==='hipopotamo' || habitatAtual.animaisExistentes[0]==='vazio')) {
+            let espacoOcupado
+            if(habitatAtual.animaisExistentes[0]==='vazio'){
+                espacoOcupado=0
+            }
+            else {
+                espacoOcupado = habitatAtual.animaisExistentes[0].quantidade * animais.animais.hipopotamo.tamanho;
+            }
+            let tamHabitat = habitatAtual.tamanho;
+            let espacoNovosAnimais = quantidade*animais.animais.hipopotamo.tamanho;
+            if(tamHabitat - espacoOcupado >= espacoNovosAnimais) {
+                resultado.erro = false;
+                resultado.recintosViaveis[j] = `Recinto ${i+1} (espaço livre: ${tamHabitat-(espacoOcupado + quantidade * animais.animais.hipopotamo.tamanho)} total: ${tamHabitat})`;
+                j++;
+            }
+        }
+        else {
+            let espacoOcupado
+            if(habitatAtual.animaisExistentes[0].animal==='gazela') {
+                espacoOcupado = habitatAtual.animaisExistentes[0].quantidade * animais.animais.gazela.tamanho;
+            }
+            else {
+                if(habitatAtual.animaisExistentes[0].animal==='macaco'){
+                    espacoOcupado = habitatAtual.animaisExistentes[0].quantidade * animais.animais.macaco.tamanho;
+                }
+            }
+            let tamHabitat = habitatAtual.tamanho;
+            let espacoNovosAnimais = quantidade*animais.animais.hipopotamo.tamanho;
+            let animaisPresente = habitatAtual.animaisExistentes[0].animal;
+            if(habitatAtual.bioma === "savana e rio" && (animaisPresente!=='leao' && animaisPresente!=='leopardo' && animaisPresente!=='crocodilo') && tamHabitat - espacoOcupado > espacoNovosAnimais) {
+                resultado.erro = false;
+                resultado.recintosViaveis[j] = `Recinto ${i+1} (espaço livre: ${tamHabitat-(espacoOcupado + quantidade * animais.animais.hipopotamo.tamanho)} total: ${tamHabitat})`;
+                j++;
+            }
+        }
+    }
+    if(j===0) {
+        resultado.erro = 'Não há recinto viável'
+        resultado.recintosViaveis = false
+    }
+    return resultado;
+}
+
 
 class RecintosZoo {
 
@@ -131,7 +190,7 @@ class RecintosZoo {
 
             }
             else if (animal === 'hipopotamo') {
-
+                resultado = buscaHipopotamo(quantidade)
             }
             else {
                 resultado = {

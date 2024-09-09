@@ -67,6 +67,17 @@
                     "animal":"crocodilo"
                 }
             ]
+        },
+        {
+            "numero":8,
+            "bioma":"savana",
+            "tamanho":14,
+            "animaisExistentes":[
+                {
+                    "quantidade":2,
+                    "animal":"hipopotamo"
+                }
+            ]
         }
     ]
 }

@@ -9,7 +9,7 @@ describe('Recintos do Zoologico', () => {
         });
 
     test('Deve rejeitar quantidade inválida', () => {
-            const resultado = new RecintosZoo().analisaRecintos('MACACO', 0);
+            const resultado = new RecintosZoo().analisaRecintos('macaco', 0);
             expect(resultado.erro).toBe("Quantidade inválida");
             expect(resultado.recintosViaveis).toBeFalsy();
     });
@@ -29,7 +29,6 @@ describe('Recintos do Zoologico', () => {
     });
 
     test('Deve encontrar recintos para 2 macacos', () => {
-
         const resultado = new RecintosZoo().analisaRecintos('macaco', 2);
         expect(resultado.erro).toBeFalsy();
         expect(resultado.recintosViaveis[0]).toBe('Recinto 1 (espaço livre: 5 total: 10)');
@@ -68,6 +67,26 @@ describe('Recintos do Zoologico', () => {
         expect(resultado.erro).toBeFalsy();
         expect(resultado.recintosViaveis[0]).toBe('Recinto 6 (espaço livre: 2 total: 6)')
         expect(resultado.recintosViaveis.length).toBe(1)
+    })
+
+    test("Nao deve colocar macaco com hipopotamo em uma savana", () => {
+        const resultado = new RecintosZoo().analisaRecintos('macaco', 2);
+        expect(resultado.erro).toBeFalsy();
+        expect(resultado.recintosViaveis[0]).toBe('Recinto 1 (espaço livre: 5 total: 10)');
+        expect(resultado.recintosViaveis[1]).toBe('Recinto 2 (espaço livre: 3 total: 5)');
+        expect(resultado.recintosViaveis[2]).toBe('Recinto 3 (espaço livre: 2 total: 7)');
+        expect(resultado.recintosViaveis[3]).toBe('Recinto 6 (espaço livre: 4 total: 6)');
+        expect(resultado.recintosViaveis.length).toBe(4);
+    })
+
+    test("Deve encontrar recinto para 1 hipopotamo", () => {
+        const resultado = new RecintosZoo().analisaRecintos('hipopotamo',1);
+        expect(resultado.erro).toBeFalsy();
+        expect(resultado.recintosViaveis[0]).toBe('Recinto 3 (espaço livre: 1 total: 7)');
+        expect(resultado.recintosViaveis[1]).toBe('Recinto 4 (espaço livre: 4 total: 8)');
+        expect(resultado.recintosViaveis[2]).toBe('Recinto 6 (espaço livre: 2 total: 6)');
+        expect(resultado.recintosViaveis[3]).toBe('Recinto 8 (espaço livre: 2 total: 14)');
+        expect(resultado.recintosViaveis.length).toBe(4);
     })
 
 });
