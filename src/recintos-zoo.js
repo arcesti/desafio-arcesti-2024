@@ -131,17 +131,17 @@ function buscaHipopotamo(quantidade) {
         else {
             let espacoOcupado
             if(habitatAtual.animaisExistentes[0].animal==='gazela') {
-                espacoOcupado = habitatAtual.animaisExistentes[0].quantidade * animais.animais.gazela.tamanho;
+                espacoOcupado = habitatAtual.animaisExistentes[0].quantidade * animais.animais.gazela.tamanho + 1;
             }
             else {
                 if(habitatAtual.animaisExistentes[0].animal==='macaco'){
-                    espacoOcupado = habitatAtual.animaisExistentes[0].quantidade * animais.animais.macaco.tamanho;
+                    espacoOcupado = habitatAtual.animaisExistentes[0].quantidade * animais.animais.macaco.tamanho + 1;
                 }
             }
             let tamHabitat = habitatAtual.tamanho;
             let espacoNovosAnimais = quantidade*animais.animais.hipopotamo.tamanho;
             let animaisPresente = habitatAtual.animaisExistentes[0].animal;
-            if(habitatAtual.bioma === "savana e rio" && (animaisPresente!=='leao' && animaisPresente!=='leopardo' && animaisPresente!=='crocodilo') && tamHabitat - espacoOcupado > espacoNovosAnimais) {
+            if(habitatAtual.bioma === "savana e rio" && (animaisPresente!=='leao' && animaisPresente!=='leopardo' && animaisPresente!=='crocodilo') && tamHabitat - espacoOcupado >= espacoNovosAnimais) {
                 resultado.erro = false;
                 resultado.recintosViaveis[j] = `Recinto ${i+1} (espaço livre: ${tamHabitat-(espacoOcupado + quantidade * animais.animais.hipopotamo.tamanho)} total: ${tamHabitat})`;
                 j++;
