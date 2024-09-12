@@ -78,6 +78,21 @@
                     "animal":"hipopotamo"
                 }
             ]
+        },
+        {
+            "numero":9,
+            "bioma":"savana e rio",
+            "tamanho":20,
+            "animaisExistentes":[
+                {
+                    "quantidade":1,
+                    "animal":"hipopotamo"
+                },
+                {
+                    "quantidade":1,
+                    "animal":"macaco"
+                }
+            ]
         }
     ]
 }

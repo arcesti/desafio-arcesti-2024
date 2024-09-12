@@ -35,7 +35,8 @@ describe('Recintos do Zoologico', () => {
         expect(resultado.recintosViaveis[1]).toBe('Recinto 2 (espaço livre: 3 total: 5)');
         expect(resultado.recintosViaveis[2]).toBe('Recinto 3 (espaço livre: 2 total: 7)');
         expect(resultado.recintosViaveis[3]).toBe('Recinto 6 (espaço livre: 4 total: 6)');
-        expect(resultado.recintosViaveis.length).toBe(4);
+        expect(resultado.recintosViaveis[4]).toBe('Recinto 9 (espaço livre: 12 total: 20)');        
+        expect(resultado.recintosViaveis.length).toBe(5);
     });
 
     //CASOS DE TESTES EXTRAS
@@ -76,7 +77,7 @@ describe('Recintos do Zoologico', () => {
         expect(resultado.recintosViaveis[1]).toBe('Recinto 2 (espaço livre: 3 total: 5)');
         expect(resultado.recintosViaveis[2]).toBe('Recinto 3 (espaço livre: 2 total: 7)');
         expect(resultado.recintosViaveis[3]).toBe('Recinto 6 (espaço livre: 4 total: 6)');
-        expect(resultado.recintosViaveis.length).toBe(4);
+        expect(resultado.recintosViaveis.length).toBe(5);
     })
 
     test("Deve encontrar recinto para 1 hipopotamo", () => {
@@ -86,6 +87,16 @@ describe('Recintos do Zoologico', () => {
         expect(resultado.recintosViaveis[1]).toBe('Recinto 4 (espaço livre: 4 total: 8)');
         expect(resultado.recintosViaveis[2]).toBe('Recinto 6 (espaço livre: 2 total: 6)');
         expect(resultado.recintosViaveis[3]).toBe('Recinto 8 (espaço livre: 2 total: 14)');
+        expect(resultado.recintosViaveis.length).toBe(4);
+    })
+
+    test("Deve encontrar recinto para 1 gazela", () => {
+        const resultado = new RecintosZoo().analisaRecintos('gazela', 1);
+        expect(resultado.erro).toBeFalsy();
+        expect(resultado.recintosViaveis[0]).toBe('Recinto 1 (espaço livre: 4 total: 10)');
+        expect(resultado.recintosViaveis[1]).toBe('Recinto 3 (espaço livre: 3 total: 7)');
+        expect(resultado.recintosViaveis[2]).toBe('Recinto 6 (espaço livre: 4 total: 6)');
+        expect(resultado.recintosViaveis[3]).toBe('Recinto 9 (espaço livre: 12 total: 20)');
         expect(resultado.recintosViaveis.length).toBe(4);
     })
 
